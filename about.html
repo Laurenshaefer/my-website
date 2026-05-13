@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — DinoVault</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #4ade80;
+      --green-dim:    #22c55e;
+      --green-dark:   #166534;
+      --green-glow:   rgba(74, 222, 128, 0.14);
+      --bg:           #0a0c0a;
+      --bg-2:         #0f120f;
+      --bg-3:         #141a14;
+      --surface:      #1a211a;
+      --surface-2:    #202820;
+      --surface-fact: #111a11;
+      --border:       rgba(74, 222, 128, 0.12);
+      --border-mid:   rgba(74, 222, 128, 0.28);
+      --text:         #e8f0e8;
+      --text-muted:   #8fa08f;
+      --text-dim:     #5a705a;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-cond:    'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    /* ══ NAV ══ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 12, 10, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      letter-spacing: 0.06em;
+      color: var(--green);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-cond);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 3px;
+      border: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--green);
+      border-color: var(--border-mid);
+      background: var(--green-glow);
+    }
+
+    /* ══ BANNER ══ */
+    .banner {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #091409 0%, #0c1f0e 30%, #0f2d14 55%, #0a1a0c 80%, #080e08 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(74,222,128,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,222,128,0.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 65% 80% at 50% 50%, rgba(74,222,128,0.09) 0%, transparent 70%);
+    }
+
+    .banner-corner {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-color: rgba(74,222,128,0.35);
+      border-style: solid;
+      z-index: 2;
+    }
+    .banner-corner.tl { top: 20px; left: 20px; border-width: 1px 0 0 1px; }
+    .banner-corner.tr { top: 20px; right: 20px; border-width: 1px 1px 0 0; }
+    .banner-corner.bl { bottom: 20px; left: 20px; border-width: 0 0 1px 1px; }
+    .banner-corner.br { bottom: 20px; right: 20px; border-width: 0 1px 1px 0; }
+
+    .banner-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+
+    .banner-eyebrow {
+      font-family: var(--font-cond);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+    }
+
+    .banner-eyebrow::before,
+    .banner-eyebrow::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--green);
+      opacity: 0.55;
+    }
+
+    .banner-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      letter-spacing: 0.04em;
+      color: #ffffff;
+      line-height: 0.95;
+    }
+
+    /* ══ BIO SECTION ══ */
+    .bio-section {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: var(--bg);
+      position: relative;
+    }
+
+    /* Photo placeholder circle */
+    .photo-placeholder {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--border-mid);
+      margin: 0 auto 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+
+    /* Subtle rotating ring around photo */
+    .photo-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px dashed rgba(74,222,128,0.3);
+      animation: spin 18s linear infinite;
+    }
+
+    .photo-initials {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* SVG dino silhouette watermark inside circle */
+    .photo-dino-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0.12;
+    }
+
+    .bio-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.7s ease 0.3s both;
+    }
+
+    .bio-heading .accent { color: var(--green); }
+
+    .bio-subtitle {
+      font-family: var(--font-cond);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s ease 0.38s both;
+    }
+
+    .bio-text {
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+      animation: fadeUp 0.7s ease 0.46s both;
+    }
+
+    .bio-text-2 {
+      animation-delay: 0.54s;
+    }
+
+    /* ══ SKILLS SECTION ══ */
+    .skills-section {
+      padding: 5rem 2rem;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-tag {
+      font-family: var(--font-cond);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem 1.5rem 1.75rem;
+      text-align: center;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-4px);
+    }
+
+    .skill-card:hover::before { opacity: 1; }
+
+    .skill-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--bg-3);
+      border: 1px solid var(--border-mid);
+      margin: 0 auto 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .skill-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+      line-height: 1.1;
+    }
+
+    .skill-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ══ FUN FACTS SECTION ══ */
+    .facts-section {
+      padding: 5rem 2rem;
+      background: var(--surface-fact);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .fact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2.25rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .fact-card:hover {
+      border-color: var(--green-dim);
+      transform: translateY(-4px);
+    }
+
+    /* Large faded number watermark */
+    .fact-num-bg {
+      position: absolute;
+      top: -0.5rem;
+      right: 1rem;
+      font-family: var(--font-display);
+      font-size: 7rem;
+      letter-spacing: 0.02em;
+      color: var(--green);
+      opacity: 0.06;
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .fact-num {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .fact-num::after {
+      content: '';
+      flex: 1;
+      max-width: 32px;
+      height: 1px;
+      background: var(--green-dim);
+      opacity: 0.5;
+    }
+
+    .fact-icon {
+      margin-bottom: 1rem;
+    }
+
+    .fact-text {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fact-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+      color: var(--green);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-logo span { color: var(--text-muted); }
+
+    .footer-copy {
+      font-family: var(--font-cond);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+
+    .footer-copy a {
+      color: var(--green-dim);
+      text-decoration: none;
+    }
+
+    .footer-copy a:hover { color: var(--green); }
+
+    /* ══ ANIMATIONS ══ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .skill-card:nth-child(1) { animation: fadeUp 0.6s ease 0.2s both; }
+    .skill-card:nth-child(2) { animation: fadeUp 0.6s ease 0.32s both; }
+    .skill-card:nth-child(3) { animation: fadeUp 0.6s ease 0.44s both; }
+    .skill-card:nth-child(4) { animation: fadeUp 0.6s ease 0.56s both; }
+
+    .fact-card:nth-child(1) { animation: fadeUp 0.6s ease 0.2s both; }
+    .fact-card:nth-child(2) { animation: fadeUp 0.6s ease 0.35s both; }
+    .fact-card:nth-child(3) { animation: fadeUp 0.6s ease 0.5s both; }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 900px) {
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .facts-grid  { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     NAV
+══════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Dino<span>Vault</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     BANNER
+══════════════════════════════════ -->
+<div class="banner">
+  <div class="banner-corner tl"></div>
+  <div class="banner-corner tr"></div>
+  <div class="banner-corner bl"></div>
+  <div class="banner-corner br"></div>
+  <div class="banner-content">
+    <p class="banner-eyebrow">DinoVault</p>
+    <h1 class="banner-title">My Story</h1>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     BIO SECTION
+══════════════════════════════════ -->
+<section class="bio-section">
+
+  <!-- Circular photo placeholder -->
+  <div class="photo-placeholder">
+    <div class="photo-dino-bg">
+      <svg viewBox="0 0 160 140" width="160" height="140" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="80" cy="98" rx="42" ry="28" fill="#4ade80"/>
+        <ellipse cx="102" cy="70" rx="15" ry="19" fill="#4ade80"/>
+        <ellipse cx="128" cy="50" rx="24" ry="16" fill="#4ade80"/>
+        <ellipse cx="130" cy="63" rx="19" ry="9" fill="#22c55e"/>
+        <path d="M38 105 Q16 118 4 132" stroke="#4ade80" stroke-width="16" stroke-linecap="round" fill="none"/>
+        <rect x="68" y="118" width="18" height="30" rx="8" fill="#22c55e"/>
+        <path d="M108 88 L96 103" stroke="#22c55e" stroke-width="6" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <span class="photo-initials">LS</span>
+  </div>
+
+  <h2 class="bio-heading">Hi, I am <span class="accent">Lauren</span></h2>
+  <p class="bio-subtitle">Dinosaur Enthusiast &amp; Hobby Researcher</p>
+
+  <p class="bio-text">
+    I have been interested in dinosaurs for as long as I can remember. Growing up, I was captivated not just by how big or fearsome they were, but by the extraordinary diversity hidden across millions of years of prehistory — the differences in how they moved, what they ate, where they lived, and how their bones tell the story of entire ecosystems long gone. This site is my way of sharing that passion with anyone curious enough to look.
+  </p>
+  <p class="bio-text bio-text-2">
+    My focus is on the different types of dinosaurs and what makes each group truly unique. I have loved studying their skeletons and exploring everything that sets them apart — from the hollow bones of theropods to the armored frills of ceratopsians. Whether you are a lifelong dino nerd or just starting to explore, you are in the right place.
+  </p>
+
+</section>
+
+<!-- ══════════════════════════════════
+     SKILLS SECTION
+══════════════════════════════════ -->
+<section class="skills-section">
+  <div class="section-header">
+    <p class="section-tag">What I Know</p>
+    <h2 class="section-title">AREAS OF FOCUS</h2>
+  </div>
+
+  <div class="skills-grid">
+
+    <!-- Skill 1: Species Identification -->
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+          <!-- Magnifying glass over dino silhouette -->
+          <circle cx="18" cy="18" r="10" fill="none" stroke="#22c55e" stroke-width="2"/>
+          <line x1="25" y1="25" x2="33" y2="33" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- tiny dino inside glass -->
+          <ellipse cx="18" cy="20" rx="5" ry="3.5" fill="#22c55e" opacity="0.7"/>
+          <ellipse cx="22" cy="16.5" rx="3" ry="2" fill="#22c55e" opacity="0.7"/>
+          <path d="M13 21 Q10 24 8 26" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="skill-name">Species Identification</div>
+      <p class="skill-desc">Distinguishing dinosaur species by their anatomical features, proportions, and defining skeletal characteristics.</p>
+    </div>
+
+    <!-- Skill 2: Skeleton Recognition -->
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+          <!-- Stylized skeleton bones -->
+          <line x1="20" y1="6" x2="20" y2="34" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <line x1="10" y1="14" x2="30" y2="14" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <line x1="12" y1="22" x2="28" y2="22" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="20" cy="6" r="2.5" fill="#22c55e"/>
+          <circle cx="10" cy="14" r="2" fill="#22c55e"/>
+          <circle cx="30" cy="14" r="2" fill="#22c55e"/>
+          <circle cx="12" cy="22" r="2" fill="#22c55e"/>
+          <circle cx="28" cy="22" r="2" fill="#22c55e"/>
+          <circle cx="20" cy="34" r="2.5" fill="#22c55e"/>
+        </svg>
+      </div>
+      <div class="skill-name">Skeleton Recognition</div>
+      <p class="skill-desc">Reading fossil bone structures to identify species, posture, locomotion patterns, and evolutionary relationships.</p>
+    </div>
+
+    <!-- Skill 3: Geographical Relation -->
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+          <!-- Globe outline -->
+          <circle cx="20" cy="20" r="13" fill="none" stroke="#22c55e" stroke-width="2"/>
+          <!-- Latitude lines -->
+          <ellipse cx="20" cy="20" rx="13" ry="5" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.5"/>
+          <!-- Vertical axis -->
+          <line x1="20" y1="7" x2="20" y2="33" stroke="#22c55e" stroke-width="1" opacity="0.5"/>
+          <!-- Continent blob -->
+          <ellipse cx="17" cy="18" rx="4" ry="5" fill="#22c55e" opacity="0.55"/>
+          <ellipse cx="24" cy="22" rx="3" ry="3.5" fill="#22c55e" opacity="0.45"/>
+        </svg>
+      </div>
+      <div class="skill-name">Geographical Relation</div>
+      <p class="skill-desc">Connecting dinosaur species to the ancient continents, habitats, and climate zones where their fossils are found.</p>
+    </div>
+
+    <!-- Skill 4: Recognizing Groups -->
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+          <!-- Three grouped shapes representing clade groupings -->
+          <rect x="5" y="24" width="10" height="10" rx="2" fill="#22c55e" opacity="0.85"/>
+          <rect x="17" y="16" width="10" height="18" rx="2" fill="#22c55e" opacity="0.65"/>
+          <rect x="29" y="20" width="6" height="14" rx="2" fill="#22c55e" opacity="0.45"/>
+          <!-- Connecting bracket -->
+          <path d="M10 24 Q10 10 20 10 Q30 10 32 20" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+          <circle cx="20" cy="10" r="2" fill="#22c55e" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="skill-name">Recognizing Groups</div>
+      <p class="skill-desc">Classifying dinosaurs into their correct clades — theropods, sauropods, ornithischians, and beyond — based on shared traits.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FUN FACTS SECTION
+══════════════════════════════════ -->
+<section class="facts-section">
+  <div class="section-header">
+    <p class="section-tag">Get To Know Me</p>
+    <h2 class="section-title">FUN FACTS</h2>
+  </div>
+
+  <div class="facts-grid">
+
+    <!-- Fact 01 -->
+    <div class="fact-card">
+      <div class="fact-num-bg">01</div>
+      <div class="fact-num">01</div>
+      <div class="fact-icon">
+        <svg viewBox="0 0 48 32" width="48" height="32" xmlns="http://www.w3.org/2000/svg">
+          <!-- Spinosaurus sail silhouette -->
+          <ellipse cx="22" cy="22" rx="18" ry="10" fill="#166534" opacity="0.7"/>
+          <!-- Sail -->
+          <path d="M16 20 Q18 6 22 4 Q26 6 30 14 L28 20 Z" fill="#166534" opacity="0.55"/>
+          <!-- Head -->
+          <ellipse cx="38" cy="18" rx="10" ry="6" fill="#166534" opacity="0.7"/>
+          <path d="M40 22 L46 20" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <path d="M4 22 Q2 26 0 30" stroke="#166534" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.7"/>
+        </svg>
+      </div>
+      <p class="fact-text">My <strong>favorite dinosaur is the Spinosaurus</strong> — a semi-aquatic giant with a dramatic sail and a skull built for hunting fish, making it unlike any other predator of its era.</p>
+    </div>
+
+    <!-- Fact 02 -->
+    <div class="fact-card">
+      <div class="fact-num-bg">02</div>
+      <div class="fact-num">02</div>
+      <div class="fact-icon">
+        <svg viewBox="0 0 48 32" width="48" height="32" xmlns="http://www.w3.org/2000/svg">
+          <!-- Three small skeleton model shapes side by side -->
+          <rect x="4" y="16" width="8" height="14" rx="2" fill="#166534" opacity="0.8"/>
+          <line x1="8" y1="10" x2="8" y2="16" stroke="#166534" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+          <circle cx="8" cy="9" r="3" fill="#166534" opacity="0.8"/>
+          <line x1="3" y1="19" x2="13" y2="19" stroke="#22c55e" stroke-width="1.5" opacity="0.6"/>
+
+          <rect x="20" y="14" width="8" height="16" rx="2" fill="#166534" opacity="0.65"/>
+          <line x1="24" y1="8" x2="24" y2="14" stroke="#166534" stroke-width="2" stroke-linecap="round" opacity="0.65"/>
+          <circle cx="24" cy="7" r="3" fill="#166534" opacity="0.65"/>
+          <line x1="19" y1="17" x2="29" y2="17" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
+
+          <rect x="36" y="18" width="8" height="12" rx="2" fill="#166534" opacity="0.5"/>
+          <line x1="40" y1="12" x2="40" y2="18" stroke="#166534" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+          <circle cx="40" cy="11" r="3" fill="#166534" opacity="0.5"/>
+          <line x1="35" y1="21" x2="45" y2="21" stroke="#22c55e" stroke-width="1.5" opacity="0.4"/>
+        </svg>
+      </div>
+      <p class="fact-text">I have <strong>built several scale model dinosaur skeletons</strong> by hand — assembling each bone piece by piece, which has given me a deep appreciation for how these creatures were physically put together.</p>
+    </div>
+
+    <!-- Fact 03 -->
+    <div class="fact-card">
+      <div class="fact-num-bg">03</div>
+      <div class="fact-num">03</div>
+      <div class="fact-icon">
+        <svg viewBox="0 0 48 32" width="48" height="32" xmlns="http://www.w3.org/2000/svg">
+          <!-- Two dino silhouettes with an equals/arrow between them (Dracorex = juvenile Stygimoloch) -->
+          <ellipse cx="10" cy="20" rx="8" ry="6" fill="#166534" opacity="0.75"/>
+          <ellipse cx="18" cy="14" rx="6" ry="5" fill="#166534" opacity="0.75"/>
+          <path d="M22 13 L26 10" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <!-- Arrow -->
+          <path d="M26 16 L33 16" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <path d="M30 13 L33 16 L30 19" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Larger species -->
+          <ellipse cx="40" cy="20" rx="7" ry="5" fill="#166534" opacity="0.55"/>
+          <ellipse cx="46" cy="15" rx="5" ry="4" fill="#166534" opacity="0.55"/>
+          <path d="M48 14 L48 10" stroke="#22c55e" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+          <path d="M46 10 L50 10" stroke="#22c55e" stroke-width="1.5" opacity="0.6"/>
+        </svg>
+      </div>
+      <p class="fact-text">I was fond of <strong>Dracorex hogwartsia</strong> before paleontologists determined it was likely just a juvenile Stygimoloch — a reminder that even named species can turn out to be chapters in a bigger story.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer>
+  <a href="index.html" class="footer-logo">Dino<span>Vault</span></a>
+  <p class="footer-copy">
+    &copy; 2025 DinoVault &mdash; Made with 🦕 by <a href="about.html">Lauren Shaefer</a>
+  </p>
+</footer>
+
+</body>
+</html>
